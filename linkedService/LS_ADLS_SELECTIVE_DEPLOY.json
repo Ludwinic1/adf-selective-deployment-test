@@ -1,0 +1,10 @@
+{
+	"name": "LS_ADLS_SELECTIVE_DEPLOY",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://adlsadfselecdeploy.dfs.core.windows.net"
+		}
+	}
+}
