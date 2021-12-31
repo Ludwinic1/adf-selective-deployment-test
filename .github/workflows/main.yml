@@ -6,8 +6,7 @@ jobs:
       ubuntu-latest
     steps:
       - name: Checkout-Code-Repo
-      - uses: actions/checkout@v2
-      
+        uses: actions/checkout@v2
       - name: Azure PowerShell Action
         uses: Azure/powershell@v1
         with:
