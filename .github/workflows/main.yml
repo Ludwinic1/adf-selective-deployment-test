@@ -19,7 +19,7 @@ jobs:
           Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
           Install-Module -Name "azure.datafactory.tools" -Force
           Import-Module -Name "azure.datafactory.tools" -Force
-          Publish-AdfV2FromJson -RootFolder "adf-selective-deployment-test" -ResourceGroupName $RESOURCE_GROUP_NAME -DataFactoryName $DATA_FACTORY_NAME -Location $LOCATION
+          Publish-AdfV2FromJson -RootFolder "adf-selective-deployment-test" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}"
         azPSVersion: "latest"
 #        FailOnStandardError: true
 #        azurePowerShellVersion: LatestVersion```
