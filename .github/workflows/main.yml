@@ -1,1 +1,28 @@
-
+name: ADF Selective Deployment 
+on:
+   
+variables:
+  ResourceGroupName: 'rg-adf-selective-deployment-test'
+  DataFactoryName: 'adf-selective-deployment-prod-njl'
+jobs:
+  Install-and-Import-PowerShell-Module:
+    runs-on:
+      ubuntu-latest
+    steps:
+      - uses: 
+    - powershell: |
+       Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
+       Install-Module -Name "azure.datafactory.tools" -Force
+       Import-Module -Name "azure.datafactory.tools" -Force
+      displayName: 'PowerShell Script'
+steps:
+- task: AzurePowerShell@4
+  displayName: 'Azure PowerShell script: InlineScript'
+  inputs:
+    azureSubscription: 'Subscription'
+    ScriptType: InlineScript
+    Inline: |
+     Publish-AdfV2FromJson -RootFolder "$(System.DefaultWorkingDirectory)/_ArtifactName_/" -ResourceGroupName "$(ResourceGroupName)" -DataFactoryName "$(DataFactoryName)" -Location "$(Location)" -Stage "$(Release.EnvironmentName)"
+     
+    FailOnStandardError: true
+    azurePowerShellVersion: LatestVersion```
