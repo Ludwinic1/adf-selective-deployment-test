@@ -24,7 +24,7 @@ jobs:
           Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
           Install-Module -Name "azure.datafactory.tools" -Force
           Import-Module -Name "azure.datafactory.tools" -Force
-          Publish-AdfV2FromJson -RootFolder "{{ env.GITHUB_WORKSPACE }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}"
+          Publish-AdfV2FromJson -RootFolder "$GITHUB_WORKSPACE" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}"
         azPSVersion: "latest"
 #        FailOnStandardError: true
 #        azurePowerShellVersion: LatestVersion```
