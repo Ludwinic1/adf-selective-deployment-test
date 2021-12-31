@@ -1,5 +1,5 @@
 name: ADF Selective Deployment 
-on: workflow-dispatch
+on: workflow_dispatch
    
 variables:
   ResourceGroupName: 'rg-adf-selective-deployment-test'
