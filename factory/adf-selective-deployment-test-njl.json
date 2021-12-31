@@ -1,0 +1,9 @@
+{
+	"name": "adf-selective-deployment-test-njl",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "24912ebe-7386-4d4a-bda1-a5be381411dd",
+		"tenantId": "2aa8e0e2-e629-4970-b9d6-d534a9ac3386"
+	}
+}
