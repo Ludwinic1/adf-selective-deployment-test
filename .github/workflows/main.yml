@@ -1,12 +1,21 @@
 name: ADF Selective Deployment 
 on: workflow_dispatch
+
+# variables:
+#   ResourceGroupName: 'rg-adf-selective-deployment-test'
+#   DataFactoryName: 'adf-selective-deployment-prod-njl'
 jobs:
   Install-and-Import-PowerShell-Module:
+    env:
+      RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
+      DATA_FACTORY_NAME: adf-selective-deployment-prod-njl
+      LOCATION: EastUS 
     runs-on:
       ubuntu-latest
     steps:
     - name: Checkout-Code-Repo
       uses: actions/checkout@v2
+    
     - name: Azure PowerShell Action
       uses: Azure/powershell@v1
       with:
@@ -14,4 +23,42 @@ jobs:
           Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
           Install-Module -Name "azure.datafactory.tools" -Force
           Import-Module -Name "azure.datafactory.tools" -Force
+          Publish-AdfV2FromJson -RootFolder "adf-selective-deployment-test" -ResourceGroupName "$RESOURCE_GROUP_NAME" -DataFactoryName "$DATA_FACTORY_NAME" -Location "$LOCATION"
         azPSVersion: "latest"
+#        FailOnStandardError: true
+#        azurePowerShellVersion: LatestVersion```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# name: ADF Selective Deployment 
+# on: workflow_dispatch
+# jobs:
+#   Install-and-Import-PowerShell-Module:
+#     runs-on:
+#       ubuntu-latest
+#     steps:
+#     - name: Checkout-Code-Repo
+#       uses: actions/checkout@v2
+#     - name: Azure PowerShell Action
+#       uses: Azure/powershell@v1
+#       with:
+#         inlineScript: |
+#           Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
+#           Install-Module -Name "azure.datafactory.tools" -Force
+#           Import-Module -Name "azure.datafactory.tools" -Force
+#         azPSVersion: "latest"
