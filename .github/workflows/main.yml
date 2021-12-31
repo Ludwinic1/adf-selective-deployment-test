@@ -1,7 +1,7 @@
 name: ADF Selective Deployment 
 on: workflow_dispatch
 jobs:
-  Install-and-Import-PowerShell-Module:
+  Run-Deployment-of-ADF-to-PROD:
     env:
       RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
       DATA_FACTORY_NAME: adf-selective-deployment-prod-njl
@@ -9,7 +9,7 @@ jobs:
     runs-on:
       ubuntu-latest
     steps:
-    - name: Checkout-Code-Repo
+    - name: Checkout Code Repo
       uses: actions/checkout@v2
     
     - name: Azure Login
