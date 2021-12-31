@@ -1,9 +1,5 @@
 name: ADF Selective Deployment 
 on: workflow_dispatch
-
-# variables:
-#   ResourceGroupName: 'rg-adf-selective-deployment-test'
-#   DataFactoryName: 'adf-selective-deployment-prod-njl'
 jobs:
   Install-and-Import-PowerShell-Module:
     runs-on:
@@ -20,11 +16,3 @@ jobs:
             Install-Module -Name "azure.datafactory.tools" -Force
             Import-Module -Name "azure.datafactory.tools" -Force
           azPSVersion: "latest"
-#          inputs:
-#          azureSubscription: 'Subscription'
-#          ScriptType: InlineScript
-#          Inline: |
-#             Publish-AdfV2FromJson -RootFolder "$(System.DefaultWorkingDirectory)/_ArtifactName_/" -ResourceGroupName "$(ResourceGroupName)" -DataFactoryName "$(DataFactoryName)" -Location "$(Location)" -Stage "$(Release.EnvironmentName)"
-
-#        FailOnStandardError: true
-#        azurePowerShellVersion: LatestVersion```
