@@ -1,8 +1,6 @@
 name: ADF Selective Deployment 
 on: workflow_dispatch
 
-env:
-   as
 variables:
   ResourceGroupName: 'rg-adf-selective-deployment-test'
   DataFactoryName: 'adf-selective-deployment-prod-njl'
@@ -11,20 +9,22 @@ jobs:
     runs-on:
       ubuntu-latest
     steps:
-      - uses: 
-    - powershell: |
-       Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
-       Install-Module -Name "azure.datafactory.tools" -Force
-       Import-Module -Name "azure.datafactory.tools" -Force
-      displayName: 'PowerShell Script'
-steps:
-- task: AzurePowerShell@4
-  displayName: 'Azure PowerShell script: InlineScript'
-  inputs:
-    azureSubscription: 'Subscription'
-    ScriptType: InlineScript
-    Inline: |
-     Publish-AdfV2FromJson -RootFolder "$(System.DefaultWorkingDirectory)/_ArtifactName_/" -ResourceGroupName "$(ResourceGroupName)" -DataFactoryName "$(DataFactoryName)" -Location "$(Location)" -Stage "$(Release.EnvironmentName)"
-     
-    FailOnStandardError: true
-    azurePowerShellVersion: LatestVersion```
+      - name: Checkout-Code-Repo
+      - uses: actions/checkout@v2
+      
+      - name: Azure PowerShell Action
+      - uses: Azure/powershell@v1
+        with:
+          inlineScript: |
+            Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
+            Install-Module -Name "azure.datafactory.tools" -Force
+            Import-Module -Name "azure.datafactory.tools" -Force
+          azPSVersion: "latest"
+#          inputs:
+#          azureSubscription: 'Subscription'
+#          ScriptType: InlineScript
+#          Inline: |
+#             Publish-AdfV2FromJson -RootFolder "$(System.DefaultWorkingDirectory)/_ArtifactName_/" -ResourceGroupName "$(ResourceGroupName)" -DataFactoryName "$(DataFactoryName)" -Location "$(Location)" -Stage "$(Release.EnvironmentName)"
+
+#        FailOnStandardError: true
+#        azurePowerShellVersion: LatestVersion```
