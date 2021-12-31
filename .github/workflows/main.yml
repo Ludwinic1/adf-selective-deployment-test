@@ -5,13 +5,13 @@ jobs:
     runs-on:
       ubuntu-latest
     steps:
-      - name: Checkout-Code-Repo
-        uses: actions/checkout@v2
-      - name: Azure PowerShell Action
-        uses: Azure/powershell@v1
-        with:
-          inlineScript: |
-            Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
-            Install-Module -Name "azure.datafactory.tools" -Force
-            Import-Module -Name "azure.datafactory.tools" -Force
-          azPSVersion: "latest"
+    - name: Checkout-Code-Repo
+      uses: actions/checkout@v2
+    - name: Azure PowerShell Action
+      uses: Azure/powershell@v1
+      with:
+        inlineScript: |
+          Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
+          Install-Module -Name "azure.datafactory.tools" -Force
+          Import-Module -Name "azure.datafactory.tools" -Force
+        azPSVersion: "latest"
