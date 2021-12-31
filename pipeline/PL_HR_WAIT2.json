@@ -1,0 +1,20 @@
+{
+	"name": "PL_HR_WAIT2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait 50",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 50
+				}
+			}
+		],
+		"folder": {
+			"name": "HR"
+		},
+		"annotations": []
+	}
+}
