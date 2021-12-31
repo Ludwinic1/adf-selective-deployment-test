@@ -12,6 +12,11 @@ jobs:
     - name: Checkout-Code-Repo
       uses: actions/checkout@v2
     
+    - name: Azure Login
+      uses: Azure/login@v1
+      with:
+        ${{ secrets.AZURE_CREDENTIALS }}
+    
     - name: Azure PowerShell Action
       uses: Azure/powershell@v1
       with:
