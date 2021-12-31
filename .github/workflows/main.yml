@@ -1,6 +1,8 @@
 name: ADF Selective Deployment 
 on: workflow_dispatch
-   
+
+env:
+   as
 variables:
   ResourceGroupName: 'rg-adf-selective-deployment-test'
   DataFactoryName: 'adf-selective-deployment-prod-njl'
