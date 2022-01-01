@@ -1,1 +1,2 @@
 name: ADF-Selective-Deployment-2
+on: workflow_dispatch
