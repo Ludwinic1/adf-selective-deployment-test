@@ -27,5 +27,7 @@ jobs:
           Import-Module -Name "azure.datafactory.tools" -Force
           $opt = New-AdfPublishOption
           $opt.Includes.Add("pipeline.PL_COPY_ADLS_TO_ADLS", "")
+          $opt.Includes.Add("dataset.DS_ADLS_TARGET", "")
+          $opt.Includes.Add("DS_ADLS_TEST_DATA", "")
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
         azPSVersion: "latest"
