@@ -42,7 +42,7 @@ jobs:
           Set-Content -Path "$RootFolder\package.json" -Value $packageJson -Force
           npm i @microsoft/azure-data-factory-utilities@latest
           $AdfName = Split-Path -Path $RootFolder -Leaf
-          $adfAzurePath = "/subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ env.RESOURCE_GROUP_NAME }}/providers/Microsoft.DataFactory/factories/adf-selective-deployment-prod-njl2234666"
+          $adfAzurePath = "/subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ env.RESOURCE_GROUP_NAME }}/providers/Microsoft.DataFactory/factories/${{ env.DATA_FACTORY_NAME }}"
           npm run build export $RootFolder $adfAzurePath "ArmTemplate"
           az ts create --name "${{ env.TEMPLATE_SPEC_NAME }}" --resource-group "${{ env.TEMPLATE_SPEC_TARGET_RESOURCE_GROUP }}" --location "${{ env.TEMPLATE_SPEC_TARGET_LOCATION }}" --template-file "./ArmTemplate/ARMTemplateForFactory.json" --version "${{ env.TEMPLATE_SPEC_VERSION_NUMBER }}"
         azPSVersion: "latest"
