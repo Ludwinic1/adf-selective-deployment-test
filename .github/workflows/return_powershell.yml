@@ -1,4 +1,4 @@
-name: ADF Full Template Spec
+name: Return PowerShell
 on: workflow_dispatch
 jobs:
   Run-Deployment-of-ADF-to-PROD:
