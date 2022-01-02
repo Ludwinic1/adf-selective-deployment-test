@@ -28,6 +28,7 @@ jobs:
           $opt = New-AdfPublishOption
           $opt.Includes.Add("pipeline.PL_COPY_ADLS_TO_ADLS", "")
           $opt.Includes.Add("dataset.DS_ADLS_TARGET", "")
-          $opt.Includes.Add("DS_ADLS_TEST_DATA", "")
+          $opt.Includes.Add("dataset.DS_ADLS_TEST_DATA", "")
+          $opt.Includes.Add("linkedService.LS_ADLS_2_SELECTIVE_DEPLOY", "")
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
         azPSVersion: "latest"
