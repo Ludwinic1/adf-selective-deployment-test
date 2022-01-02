@@ -30,9 +30,19 @@ jobs:
       uses: Azure/powershell@v1
       with:
         inlineScript: |
-          $templateName = az deployment group list --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --query "[?properties.parameters.factoryName.value == 'adf-selective-deployment-prod-njl2234'] | [].name| [0]"
+          $RootFolder = "${{ github.workspace }}"
+          $AdfUtilitiesVersion = '0.1.6'
+          Set-Location $RootFolder
+          $packageJson = "{""scripts"": {""build"": ""node node_modules/@microsoft/azure-data-factory-utilities/lib/index""},""dependencies"": {""@microsoft/azure-data-factory-utilities"": ""^$AdfUtilitiesVersion""}}"
+          Set-Content -Path "$RootFolder\package.json" -Value $packageJson -Force
+          npm i @microsoft/azure-data-factory-utilities@latest
+          $AdfName = Split-Path -Path $RootFolder -Leaf
+          $adfAzurePath = "/subscriptions/126c93ce-f0a6-493c-8991-cdcbd797366d/resourceGroups/${{ env.RESOURCE_GROUP_NAME }}/providers/Microsoft.DataFactory/factories/adf-selective-deployment-prod-njl2234666"
+          npm run build export $RootFolder $adfAzurePath "ArmTemplate"
+          az ts create --name "spectest222" --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --location "EastUS" --template-file "./ArmTemplate/ARMTemplateForFactory.json"
         azPSVersion: "latest"
           
           # az deployment group export --name "$templateName" --resource-group "${{ env.RESOURCE_GROUP_NAME }}"  > output3.json
           # az ts create --name "testADFSPEC222" --version "1.0" --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --location "${{ env.LOCATION }}" --template-file "./output3.json"
-        
+        # $templateName = az deployment group list --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --query "[?properties.parameters.factoryName.value == 'adf-selective-deployment-prod-njl2234'] | [].name| [0]"
+
