@@ -6,6 +6,11 @@ jobs:
       RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
       DATA_FACTORY_NAME: adf-selective-deployment-prod-njl2234666
       LOCATION: EastUS
+      TEMPLATE_SPEC_NAME: tspec4455
+      TEMPLATE_SPEC_TARGET_RESOURCE_GROUP: rg-adf-selective-deployment-test
+      TEMPLATE_SPEC_TARGET_LOCATION: EastUS
+      TEMPLATE_SPEC_VERSION_NUMBER: "0.2"
+      
     runs-on:
       ubuntu-latest
     steps:
@@ -37,9 +42,9 @@ jobs:
           Set-Content -Path "$RootFolder\package.json" -Value $packageJson -Force
           npm i @microsoft/azure-data-factory-utilities@latest
           $AdfName = Split-Path -Path $RootFolder -Leaf
-          $adfAzurePath = "/subscriptions/126c93ce-f0a6-493c-8991-cdcbd797366d/resourceGroups/${{ env.RESOURCE_GROUP_NAME }}/providers/Microsoft.DataFactory/factories/adf-selective-deployment-prod-njl2234666"
+          $adfAzurePath = "/subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ env.RESOURCE_GROUP_NAME }}/providers/Microsoft.DataFactory/factories/adf-selective-deployment-prod-njl2234666"
           npm run build export $RootFolder $adfAzurePath "ArmTemplate"
-          az ts create --name "spectest222" --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --location "EastUS" --template-file "./ArmTemplate/ARMTemplateForFactory.json" --version "0.1"
+          az ts create --name "${{ env.TEMPLATE_SPEC_NAME }}" --resource-group "${{ env.TEMPLATE_SPEC_TARGET_RESOURCE_GROUP }}" --location "${{ env.TEMPLATE_SPEC_TARGET_LOCATION }}" --template-file "./ArmTemplate/ARMTemplateForFactory.json" --version "${{ env.TEMPLATE_SPEC_VERSION_NUMBER }}"
         azPSVersion: "latest"
           
           # az deployment group export --name "$templateName" --resource-group "${{ env.RESOURCE_GROUP_NAME }}"  > output3.json
