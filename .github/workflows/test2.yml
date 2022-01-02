@@ -39,7 +39,7 @@ jobs:
           $AdfName = Split-Path -Path $RootFolder -Leaf
           $adfAzurePath = "/subscriptions/126c93ce-f0a6-493c-8991-cdcbd797366d/resourceGroups/${{ env.RESOURCE_GROUP_NAME }}/providers/Microsoft.DataFactory/factories/adf-selective-deployment-prod-njl2234666"
           npm run build export $RootFolder $adfAzurePath "ArmTemplate"
-          az ts create --name "spectest222" --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --location "EastUS" --template-file "./ArmTemplate/ARMTemplateForFactory.json"
+          az ts create --name "spectest222" --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --location "EastUS" --template-file "./ArmTemplate/ARMTemplateForFactory.json" --version "0.1"
         azPSVersion: "latest"
           
           # az deployment group export --name "$templateName" --resource-group "${{ env.RESOURCE_GROUP_NAME }}"  > output3.json
