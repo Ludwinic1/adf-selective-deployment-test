@@ -26,6 +26,7 @@ jobs:
           $c = "catiititit"
           write-output $c
           write-output $templateName
+          write-output $apple
         azPSVersion: "latest"    
         
 #     - run: echo $templateName
