@@ -1,7 +1,7 @@
-name: ADF Full Template Spec
+name: ADF Deploy and Template Spec Deploy
 on: workflow_dispatch
 jobs:
-  Run-Deployment-of-ADF-to-PROD:
+  Run-Deployment-of-ADF-to-PROD-and-Deploy-Template-Spec:
     env:
       RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
       DATA_FACTORY_NAME: adf-selective-deployment-prod-njl2234666
@@ -22,7 +22,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         enable-AzPSSession: true
-    - name: Azure PowerShell Action
+    - name: Deploy Data Factory
       uses: Azure/powershell@v1
       with:
         inlineScript: |
@@ -31,7 +31,7 @@ jobs:
           Import-Module -Name "azure.datafactory.tools" -Force
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}"
         azPSVersion: "latest"
-    - name: Get ARM Template
+    - name: Build and Deploy Data Factory ARM Template Spec
       uses: Azure/powershell@v1
       with:
         inlineScript: |
@@ -47,7 +47,5 @@ jobs:
           az ts create --name "${{ env.TEMPLATE_SPEC_NAME }}" --resource-group "${{ env.TEMPLATE_SPEC_TARGET_RESOURCE_GROUP }}" --location "${{ env.TEMPLATE_SPEC_TARGET_LOCATION }}" --template-file "./ArmTemplate/ARMTemplateForFactory.json" --version "${{ env.TEMPLATE_SPEC_VERSION_NUMBER }}"
         azPSVersion: "latest"
           
-          # az deployment group export --name "$templateName" --resource-group "${{ env.RESOURCE_GROUP_NAME }}"  > output3.json
-          # az ts create --name "testADFSPEC222" --version "1.0" --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --location "${{ env.LOCATION }}" --template-file "./output3.json"
-        # $templateName = az deployment group list --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --query "[?properties.parameters.factoryName.value == 'adf-selective-deployment-prod-njl2234'] | [].name| [0]"
+       
 
