@@ -30,5 +30,7 @@ jobs:
           $opt.Includes.Add("dataset.DS_ADLS_TARGET", "")
           $opt.Includes.Add("dataset.DS_ADLS_TEST_DATA", "")
           $opt.Includes.Add("linkedService.LS_ADLS_2_SELECTIVE_DEPLOY", "")
+          $opt.Includes.Add("pipeline.PL_LOOKUP_DATASET_TEST, "")
+          $opt.Includes.Add("pipeline.PL_DATASET_TEST_WAIT", "")
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
         azPSVersion: "latest"
