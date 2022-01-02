@@ -1,0 +1,31 @@
+name: ADF Full Template Spec
+on: workflow_dispatch
+jobs:
+  Run-Deployment-of-ADF-to-PROD:
+    env:
+      RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
+      DATA_FACTORY_NAME: adf-selective-deployment-prod-njl2234
+      LOCATION: EastUS
+    runs-on:
+      ubuntu-latest
+    steps:
+    - name: Checkout Code Repo
+      uses: actions/checkout@v2
+    
+    - name: Azure Login
+      uses: Azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
+    - name: Get ARM Template
+      uses: Azure/powershell@v1
+      with:
+        inlineScript: |
+          $templateName = az deployment group list --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --query "[?properties.parameters.factoryName.value == 'adf-selective-deployment-prod-njl2234'] | [].name| [0]"
+        azPSVersion: "latest"    
+    - run: echo $templateName
+    - run: "hello, world"
+          
+          # az deployment group export --name "$templateName" --resource-group "${{ env.RESOURCE_GROUP_NAME }}"  > output3.json
+          # az ts create --name "testADFSPEC222" --version "1.0" --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --location "${{ env.LOCATION }}" --template-file "./output3.json"
+        
