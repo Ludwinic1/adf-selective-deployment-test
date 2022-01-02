@@ -22,9 +22,11 @@ jobs:
       with:
         inlineScript: |
           $templateName = az deployment group list --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --query "[?properties.parameters.factoryName.value == 'adf-selective-deployment-prod-njl2234'] | [].name| [0]"
+          $apple = "my apple"
         azPSVersion: "latest"    
     - run: echo $templateName
     - run: echo "hello, world"
+    - run: echo $apple
           
           # az deployment group export --name "$templateName" --resource-group "${{ env.RESOURCE_GROUP_NAME }}"  > output3.json
           # az ts create --name "testADFSPEC222" --version "1.0" --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --location "${{ env.LOCATION }}" --template-file "./output3.json"
