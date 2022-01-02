@@ -23,7 +23,7 @@ jobs:
         inlineScript: |
           $templateName = az deployment group list --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --query "[?properties.parameters.factoryName.value == 'adf-selective-deployment-prod-njl2234'] | [].name| [0]"
           $apple = "my apple"
-          $c = "catiititit
+          $c = "catiititit"
         azPSVersion: "latest"    
     - run: echo $templateName
     - run: echo "hello, world"
