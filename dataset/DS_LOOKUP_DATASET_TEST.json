@@ -1,0 +1,36 @@
+{
+	"name": "DS_LOOKUP_DATASET_TEST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_2_SELECTIVE_DEPLOY",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "some",
+				"fileSystem": "first-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "First Name",
+				"type": "String"
+			},
+			{
+				"name": " Last Name",
+				"type": "String"
+			},
+			{
+				"name": " Social Security Number",
+				"type": "String"
+			}
+		]
+	}
+}
