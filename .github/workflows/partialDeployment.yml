@@ -1,1 +1,2 @@
-
+name: Partial Deployment ADF
+on: workflow_dispatch
