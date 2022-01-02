@@ -25,6 +25,7 @@ jobs:
           $apple = "my apple"
           $c = "catiititit"
           write-output $c
+          write-output $templateName
         azPSVersion: "latest"    
         
 #     - run: echo $templateName
