@@ -25,7 +25,7 @@ jobs:
           Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
           Install-Module -Name "azure.datafactory.tools" -Force
           Import-Module -Name "azure.datafactory.tools" -Force
-          $adf = Import-AdfFromFolder -RootFolder "${{ github.workspace }}" - FactoryName "${{ env.DATA_FACTORY_NAME }}"
+          $adf = Import-AdfFromFolder -RootFolder "${{ github.workspace }}" -FactoryName "${{ env.DATA_FACTORY_NAME }}"
           $list1 = $adf.GetObjectsByFolderName('Sample')
           $opt = New-AdfPublishOption
           $opt.Includes += $list1
