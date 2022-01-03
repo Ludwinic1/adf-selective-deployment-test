@@ -30,5 +30,6 @@ jobs:
           $opt = New-AdfPublishOption
           $opt.Includes += $list1
           $opt.Includes.Add("pipeline.PL_WAIT_1", "")
+          $opt.Includes.Add("linkedService.LS_ADLS_2_SELECTIVE_DEPLOY", "")
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt -Stage "PROD"
         azPSVersion: "latest"
