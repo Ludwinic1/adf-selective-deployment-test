@@ -1,0 +1,33 @@
+name: Partial Deployment ADF
+on: workflow_dispatch
+
+jobs:
+  Run-Deployment-of-ADF-to-PROD:
+    env:
+      RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
+      DATA_FACTORY_NAME: adf-selective-deployment-prod-njl
+      LOCATION: EastUS
+    runs-on:
+      ubuntu-latest
+    steps:
+    - name: Checkout Code Repo
+      uses: actions/checkout@v2
+    
+    - name: Azure Login
+      uses: Azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
+    - name: Azure PowerShell Action
+      uses: Azure/powershell@v1
+      with:
+        inlineScript: |
+          Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
+          Install-Module -Name "azure.datafactory.tools" -Force
+          Import-Module -Name "azure.datafactory.tools" -Force
+          $adf = Import-AdfFromFolder -RootFolder "${{ github.workspace }}" - FactoryName "${{ env.DATA_FACTORY_NAME }}"
+          $list1 = $adf.GetObjectsByFolderName('Sample')
+          $opt = New-AdfPublishOption
+          $opt.Includes += $list1
+          Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
+        azPSVersion: "latest"
