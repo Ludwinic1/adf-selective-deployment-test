@@ -1,2 +1,0 @@
-type,name,path,value
-pipeline, PL_WAIT_1, activities[0].typeProperties.waitTimeInSeconds, 25
