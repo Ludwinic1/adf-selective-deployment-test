@@ -1,0 +1,20 @@
+{
+	"name": "PL_SAMPLE_WAIT",
+	"properties": {
+		"activities": [
+			{
+				"name": "SampleWait",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 25
+				}
+			}
+		],
+		"folder": {
+			"name": "Sample"
+		},
+		"annotations": []
+	}
+}
