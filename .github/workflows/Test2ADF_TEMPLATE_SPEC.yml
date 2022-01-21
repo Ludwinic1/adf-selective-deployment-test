@@ -6,7 +6,7 @@ jobs:
       RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
       DATA_FACTORY_NAME: adf-selective-deployment-templatespec-njl
       LOCATION: EastUS
-      TEMPLATE_SPEC_NAME: tspec100
+      TEMPLATE_SPEC_NAME: tspec101
       TEMPLATE_SPEC_TARGET_RESOURCE_GROUP: rg-adf-selective-deployment-test
       TEMPLATE_SPEC_TARGET_LOCATION: EastUS
       TEMPLATE_SPEC_VERSION_NUMBER: "0.1"
