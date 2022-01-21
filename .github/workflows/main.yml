@@ -4,7 +4,7 @@ jobs:
   Run-Deployment-of-ADF-to-PROD:
     env:
       RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
-      DATA_FACTORY_NAME: adf-selective-deployment-prod-njl
+      DATA_FACTORY_NAME: adf-selective-deploy-test2-njl
       LOCATION: EastUS
     runs-on:
       ubuntu-latest
