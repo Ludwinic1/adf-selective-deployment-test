@@ -29,6 +29,8 @@ jobs:
           Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
           Install-Module -Name "azure.datafactory.tools" -Force
           Import-Module -Name "azure.datafactory.tools" -Force
+          $opt = New-AdfPublishOption
+          $opt.Includes.Add("pipeline.PL_WAIT_1", "")
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}"
         azPSVersion: "latest"
     - name: Build and Deploy Data Factory ARM Template Spec
