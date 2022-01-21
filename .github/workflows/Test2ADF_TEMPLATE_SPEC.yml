@@ -31,7 +31,7 @@ jobs:
           Import-Module -Name "azure.datafactory.tools" -Force
           $opt = New-AdfPublishOption
           $opt.Includes.Add("pipeline.PL_WAIT_1", "")
-          Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option AdfPublishOption
+          Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
         azPSVersion: "latest"
     - name: Build and Deploy Data Factory ARM Template Spec
       uses: Azure/powershell@v1
