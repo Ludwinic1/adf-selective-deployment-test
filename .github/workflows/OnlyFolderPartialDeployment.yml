@@ -27,6 +27,7 @@ jobs:
           Import-Module -Name "azure.datafactory.tools" -Force
           $adf = Import-AdfFromFolder -RootFolder "${{ github.workspace }}" -FactoryName "${{ env.DATA_FACTORY_NAME }}"
           $list1 = $adf.GetObjectsByFolderName('Sample')
+          $list2 = $adf.GetObjectByFolderName('HR')
           $opt = New-AdfPublishOption
           $opt.Includes += $list1
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
