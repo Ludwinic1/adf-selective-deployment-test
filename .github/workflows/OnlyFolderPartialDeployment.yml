@@ -30,5 +30,6 @@ jobs:
           $list2 = $adf.GetObjectByFolderName('HR')
           $opt = New-AdfPublishOption
           $opt.Includes += $list1
+          $opt.Includes += $list2
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
         azPSVersion: "latest"
