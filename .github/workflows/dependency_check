@@ -1,0 +1,36 @@
+name: Dependency Check
+on: workflow_dispatch
+
+jobs:
+  Run-Deployment-of-ADF-to-PROD:
+    env:
+      RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
+      DATA_FACTORY_NAME: adf-selective-deployment-dependency-njl
+      LOCATION: EastUS
+    runs-on:
+      ubuntu-latest
+    steps:
+    - name: Checkout Code Repo
+      uses: actions/checkout@v2
+    
+    - name: Azure Login
+      uses: Azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
+    - name: Azure PowerShell Action
+      uses: Azure/powershell@v1
+      with:
+        inlineScript: |
+          Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
+          Install-Module -Name "azure.datafactory.tools" -Force
+          Import-Module -Name "azure.datafactory.tools" -Force
+          $opt = New-AdfPublishOption
+          $opt.Includes.Add("pipeline.PL_COPY_ADLS_TO_ADLS", "")
+          $opt.Includes.Add("dataset.DS_ADLS_TARGET", "")
+          $opt.Includes.Add("dataset.DS_ADLS_TEST_DATA", "")
+          $opt.Includes.Add("linkedService.LS_ADLS_2_SELECTIVE_DEPLOY", "")
+          $opt.Includes.Add("pipeline.PL_LOOKUP_DATASET_TEST", "")
+          $opt.Includes.Add("pipeline.PL_DATASET_TEST_WAIT", "")
+          Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
+        azPSVersion: "latest"
