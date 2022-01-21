@@ -1,3 +1,5 @@
 +pipeline.*@Comm
 pipeline.PL_SAMPLE_WAIT
 linkedService.LS_ADLS_2_SELECTIVE_DEPLOY
+dataset.*
+-pipeline.PL_WAIT_1
