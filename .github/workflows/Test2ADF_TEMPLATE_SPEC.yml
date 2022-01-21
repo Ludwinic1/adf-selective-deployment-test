@@ -4,7 +4,7 @@ jobs:
   Run-Deployment-of-ADF-to-PROD-and-Deploy-Template-Spec:
     env:
       RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
-      DATA_FACTORY_NAME: adf-selective-deployment-templatespec-njl22346690
+      DATA_FACTORY_NAME: adf-selective-deployment-templatespec-njl
       LOCATION: EastUS
       TEMPLATE_SPEC_NAME: tspec100
       TEMPLATE_SPEC_TARGET_RESOURCE_GROUP: rg-adf-selective-deployment-test
@@ -31,7 +31,7 @@ jobs:
           Import-Module -Name "azure.datafactory.tools" -Force
           $opt = New-AdfPublishOption
           $opt.Includes.Add("pipeline.PL_WAIT_1", "")
-          Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}"
+          Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option AdfPublishOption
         azPSVersion: "latest"
     - name: Build and Deploy Data Factory ARM Template Spec
       uses: Azure/powershell@v1
