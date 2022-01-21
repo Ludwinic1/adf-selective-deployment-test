@@ -4,7 +4,7 @@ jobs:
   Run-Deployment-of-ADF-to-PROD-and-Deploy-Template-Spec:
     env:
       RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
-      DATA_FACTORY_NAME: adf-selective-deployment-prod-njl22346690
+      DATA_FACTORY_NAME: adf-selective-deployment-templatespec-njl22346690
       LOCATION: EastUS
       TEMPLATE_SPEC_NAME: tspec100
       TEMPLATE_SPEC_TARGET_RESOURCE_GROUP: rg-adf-selective-deployment-test
