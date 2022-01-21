@@ -26,6 +26,6 @@ jobs:
           Install-Module -Name "azure.datafactory.tools" -Force
           Import-Module -Name "azure.datafactory.tools" -Force
           $adf = Import-AdfFromFolder -RootFolder "${{ github.workspace }}" -FactoryName "${{ env.DATA_FACTORY_NAME }}"
-          $opt = New-AdfPublishOption -FilterFilePath "${{ github.workspace }}/usefilepartialdeploy.txt
+          $opt = New-AdfPublishOption -FilterFilePath "${{ github.workspace }}/usefilepartialdeploy.txt"
           Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}" -Option $opt
         azPSVersion: "latest"
