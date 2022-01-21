@@ -1,0 +1,48 @@
+name:  Test 2 ADF Deploy and Template Spec Deploy
+on: workflow_dispatch
+jobs:
+  Run-Deployment-of-ADF-to-PROD-and-Deploy-Template-Spec:
+    env:
+      RESOURCE_GROUP_NAME: rg-adf-selective-deployment-test
+      DATA_FACTORY_NAME: adf-selective-deployment-prod-njl22346690
+      LOCATION: EastUS
+      TEMPLATE_SPEC_NAME: tspec90
+      TEMPLATE_SPEC_TARGET_RESOURCE_GROUP: rg-adf-selective-deployment-test
+      TEMPLATE_SPEC_TARGET_LOCATION: EastUS
+      TEMPLATE_SPEC_VERSION_NUMBER: "0.1"
+      
+    runs-on:
+      ubuntu-latest
+    steps:
+    - name: Checkout Code Repo
+      uses: actions/checkout@v2
+    
+    - name: Azure Login
+      uses: Azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
+    - name: Deploy Data Factory
+      uses: Azure/powershell@v1
+      with:
+        inlineScript: |
+          Install-Module Az.DataFactory -MinimumVersion "1.10.0" -Force
+          Install-Module -Name "azure.datafactory.tools" -Force
+          Import-Module -Name "azure.datafactory.tools" -Force
+          Publish-AdfV2FromJson -RootFolder "${{ github.workspace }}" -ResourceGroupName "${{ env.RESOURCE_GROUP_NAME }}" -DataFactoryName "${{ env.DATA_FACTORY_NAME }}" -Location "${{ env.LOCATION }}"
+        azPSVersion: "latest"
+    - name: Build and Deploy Data Factory ARM Template Spec
+      uses: Azure/powershell@v1
+      with:
+        inlineScript: |
+          $RootFolder = "${{ github.workspace }}"
+          $AdfUtilitiesVersion = '0.1.6'
+          Set-Location $RootFolder
+          $packageJson = "{""scripts"": {""build"": ""node node_modules/@microsoft/azure-data-factory-utilities/lib/index""},""dependencies"": {""@microsoft/azure-data-factory-utilities"": ""^$AdfUtilitiesVersion""}}"
+          Set-Content -Path "$RootFolder\package.json" -Value $packageJson -Force
+          npm i @microsoft/azure-data-factory-utilities@latest
+          $AdfName = Split-Path -Path $RootFolder -Leaf
+          $adfAzurePath = "/subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ env.RESOURCE_GROUP_NAME }}/providers/Microsoft.DataFactory/factories/${{ env.DATA_FACTORY_NAME }}"
+          npm run build export $RootFolder $adfAzurePath "ArmTemplate"
+          az ts create --name "${{ env.TEMPLATE_SPEC_NAME }}" --resource-group "${{ env.TEMPLATE_SPEC_TARGET_RESOURCE_GROUP }}" --location "${{ env.TEMPLATE_SPEC_TARGET_LOCATION }}" --template-file "./ArmTemplate/ARMTemplateForFactory.json" --version "${{ env.TEMPLATE_SPEC_VERSION_NUMBER }}"
+        azPSVersion: "latest"
